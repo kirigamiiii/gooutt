@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>serious question 🐱</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="gif_container">
+      <img src="https://media.giphy.com/media/LnKonfpQ44fNvuGLkA/giphy.gif" alt="cute cats">
+    </div>
+    <h1>Would you go out<br><span>with me?</span> 🥺</h1>
+    <p class="sub">Choose when and where 👇</p>
+
+    <div class="options-table">
+      <label class="option-row">
+        <input type="radio" name="place" value="Cafe">
+        <span class="option-card"><span class="option-emoji">☕</span>Кафе</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="place" value="Restaurant">
+        <span class="option-card"><span class="option-emoji">🍝</span>Ресторан</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="place" value="Coffee">
+        <span class="option-card"><span class="option-emoji">🥤</span>Кава на виніс</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="place" value="Movie">
+        <span class="option-card"><span class="option-emoji">🎬</span>Кіно</span>
+      </label>
+      <label class="option-row">
+        <input type="radio" name="place" value="Picnic near sea">
+        <span class="option-card"><span class="option-emoji">🌳</span>Прогулянка</span>
+      </label>
+    </div>
+
+    <div class="datetime-row">
+      <label class="dt-field">
+        <span>Дата</span>
+        <input type="date" id="dateInput">
+      </label>
+      <label class="dt-field">
+        <span>Час</span>
+        <input type="time" id="timeInput">
+      </label>
+    </div>
+
+    <p class="error-msg" id="errorMsg">please choose date and time 🥺</p>
+
+    <div class="buttons">
+      <button class="btn btn-yes" onclick="nextPage()">Yes 🐱</button>
+      <button class="btn btn-no" id="noBtn" onmouseover="runAway()" onclick="runAway()">No</button>
+    </div>
+  </div>
+
+  <script>
+    let tries = 0;
+    function runAway() {
+      tries++;
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * (window.innerWidth - btn.offsetWidth - 20);
+      const y = Math.random() * (window.innerHeight - btn.offsetHeight - 20);
+      btn.style.position = 'fixed';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+      btn.style.zIndex = 999;
+      if (tries >= 4) {
+        btn.style.opacity = '0';
+        btn.style.pointerEvents = 'none';
+      }
+    }
+    function nextPage() {
+      const place = document.querySelector('input[name="place"]:checked');
+      const date = document.getElementById('dateInput').value;
+      const time = document.getElementById('timeInput').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!place || !date || !time) {
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      const params = new URLSearchParams({
+        place: place.value,
+        date: date,
+        time: time
+      });
+      window.location.href = 'yes.html?' + params.toString();
+    }
+  </script>
+</body>
+</html>
