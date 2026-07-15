@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yay!! 🎉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="gif_container">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXc5dHQ4NzF6eXV4OGZ5a3RhcGdwcHR3aThxcXVyOHIycGdhanJzbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0HlvtIPzPdt2usKs/giphy.gif" alt="yay">
+    </div>
+    <h1>Yay!! 🎉<br><span>I knew it</span></h1>
+    <p class="sub" id="summary">Waitin on our meeting🐱</p>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const place = params.get('place');
+    const date = params.get('date');
+    const time = params.get('time');
+
+    if (place && date && time) {
+      const [year, month, day] = date.split('-');
+      const formattedDate = `${day}.${month}.${year}`;
+      document.getElementById('summary').textContent =
+        `${place} • ${formattedDate} о ${time} 🐱`;
+    }
+
+    const emojis = ['🐱','💕','✨','🌸','💖','🎉'];
+    const h = document.getElementById('hearts');
+    for (let i = 0; i < 18; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'heart-float';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.cssText = `left:${Math.random()*100}%;animation-duration:${2+Math.random()*2}s;font-size:${18+Math.random()*22}px;`;
+        h.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+      }, i * 200);
+    }
+  </script>
+</body>
+</html>
